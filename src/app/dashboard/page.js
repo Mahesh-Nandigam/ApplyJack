@@ -26,6 +26,25 @@ export default function DashboardPage() {
       if (data) setUserProfile(data);
     };
     fetchProfile();
+
+    // LISTEN FOR CHROME EXTENSION SYNC
+    const handleExtensionSync = async (e) => {
+      const { platform, cookie } = e.detail;
+      const cookieKey = platform.toLowerCase() + '_cookie';
+      
+      const { error } = await supabase
+        .from('user_profiles')
+        .update({ [cookieKey]: cookie })
+        .eq('email', 'mahesh@applyjack.ai');
+
+      if (!error) {
+        setUserProfile(prev => ({ ...prev, [cookieKey]: cookie }));
+        triggerStepPopup(`${platform} account was magically synced by the Extension!`);
+      }
+    };
+    
+    window.addEventListener('ApplyJackExtensionSync', handleExtensionSync);
+    return () => window.removeEventListener('ApplyJackExtensionSync', handleExtensionSync);
   }, []);
 
   const handleAutoApply = (platform) => {
