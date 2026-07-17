@@ -41,10 +41,10 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="h-screen w-full bg-[#09090b] text-zinc-50 font-sans flex flex-col overflow-hidden">
+    <div className="min-h-screen w-full bg-[#09090b] text-zinc-50 font-sans flex flex-col overflow-x-hidden overflow-y-auto custom-scrollbar">
       
       {/* Top 75%: Notification Cards */}
-      <div className="h-[75%] p-8 lg:p-12 flex flex-col border-b border-[#27272a]">
+      <div className="flex-none min-h-[60vh] p-8 lg:p-12 flex flex-col border-b border-[#27272a] justify-center">
         
         <header className="flex items-center justify-between mb-8 select-none">
           <div className="flex items-center gap-3">
@@ -95,7 +95,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Bottom 25%: Agent Search Interface */}
-      <div className="h-[25%] bg-[#09090b] flex flex-col justify-center items-center px-8 lg:px-24 relative overflow-hidden">
+      <div className="flex-1 min-h-[40vh] bg-[#09090b] flex flex-col justify-center items-center px-8 lg:px-24 py-16 relative">
         
         {/* Subtle background glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-full bg-indigo-500/5 blur-[120px] pointer-events-none"></div>
