@@ -247,7 +247,7 @@ export default function BuilderPage() {
       <header className="print:hidden bg-[#09090b]/80 backdrop-blur-md border-b border-[#27272a] py-6 px-8 lg:px-16 sticky top-0 z-40 flex items-center justify-between select-none">
         <div className="flex items-center gap-3">
           <span className="text-xl font-bold tracking-widest text-white uppercase font-sans cursor-pointer" onClick={() => window.location.href='/about'}>
-            LUSION
+            APPLY JACK
           </span>
         </div>
         <div className="flex items-center gap-4">

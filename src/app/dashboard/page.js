@@ -34,7 +34,7 @@ export default function DashboardPage() {
         <header className="flex items-center justify-between mb-8 select-none">
           <div className="flex items-center gap-3">
             <span className="text-xl font-bold tracking-widest text-white uppercase font-sans cursor-pointer" onClick={() => window.location.href='/about'}>
-              LUSION <span className="text-zinc-500 font-medium">/ DASHBOARD</span>
+              APPLY JACK <span className="text-zinc-500 font-medium">/ DASHBOARD</span>
             </span>
           </div>
           <div className="flex items-center gap-4">
