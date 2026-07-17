@@ -2,7 +2,7 @@
 
 ## 1. Project Overview
 * **Project Name**: ApplyJack ⚡
-* **Team Name**: ApplyJack Devs
+* **Team Name**: Shaurya
 * **Problem Statement**: Problem Statement 4 - AI-Powered Intelligent Job Application Assistant
 * **One-line Solution**: An intelligent Next.js dashboard and Chrome Extension that automates job description parsing, customizes resumes, and autofills forms in one click on Naukri and LinkedIn.
 * **Elevator Pitch**: ApplyJack removes the tedious friction of job applications. By combining a centralized candidate profile with a browser extension, it instantly extracts job requirements, tailors resumes to bypass ATS filters, and autofills portal application forms in one click.
