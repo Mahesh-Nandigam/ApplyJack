@@ -1,43 +1,45 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 
 export default function Home() {
+  const [percent, setPercent] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [showWizard, setShowWizard] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [showPopup, setShowPopup] = useState(false);
-  const [popupMessage, setPopupMessage] = useState("");
+  const [popupMessage, setPopupMessage] = useState('');
   
   // Empty initial state so the user can type everything manually
   const [profile, setProfile] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    location: "",
-    college: "",
-    degree: "",
-    major: "",
-    gradYear: "",
-    cgpa: "",
-    skills: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    location: '',
+    college: '',
+    degree: '',
+    major: '',
+    gradYear: '',
+    cgpa: '',
+    skills: '',
     experience: [
       {
-        company: "",
-        role: "",
-        duration: "",
-        description: ""
+        company: '',
+        role: '',
+        duration: '',
+        description: ''
       }
     ],
     projects: [
       {
-        title: "",
-        tech: "",
-        description: ""
+        title: '',
+        tech: '',
+        description: ''
       }
     ],
-    extracurricular: "",
-    githubUrl: "",
+    extracurricular: '',
+    githubUrl: '',
     platforms: {
       linkedin: false,
       naukri: false,
@@ -46,15 +48,30 @@ export default function Home() {
       glassdoor: false
     },
     platformUrls: {
-      linkedin: "",
-      naukri: "",
-      indeed: "",
-      wellfound: "",
-      glassdoor: ""
+      linkedin: '',
+      naukri: '',
+      indeed: '',
+      wellfound: '',
+      glassdoor: ''
     }
   });
 
-  const [platformError, setPlatformError] = useState("");
+  const [platformError, setPlatformError] = useState('');
+
+  // Preloader counter
+  useEffect(() => {
+    if (percent < 100) {
+      const timer = setTimeout(() => {
+        setPercent(prev => prev + 1);
+      }, 15);
+      return () => clearTimeout(timer);
+    } else {
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 600);
+      return () => clearTimeout(timer);
+    }
+  }, [percent]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -96,14 +113,14 @@ export default function Home() {
   const addExperience = () => {
     setProfile(prev => ({
       ...prev,
-      experience: [...prev.experience, { company: "", role: "", duration: "", description: "" }]
+      experience: [...prev.experience, { company: '', role: '', duration: '', description: '' }]
     }));
   };
 
   const addProject = () => {
     setProfile(prev => ({
       ...prev,
-      projects: [...prev.projects, { title: "", tech: "", description: "" }]
+      projects: [...prev.projects, { title: '', tech: '', description: '' }]
     }));
   };
 
@@ -118,20 +135,20 @@ export default function Home() {
   const validateStep = () => {
     if (currentStep === 1) {
       if (!profile.firstName || !profile.lastName || !profile.email) {
-        triggerStepPopup("Please fill in first name, last name, and email.");
+        triggerStepPopup('Please fill in first name, last name, and email.');
         return false;
       }
-      triggerStepPopup("Contact details saved.");
+      triggerStepPopup('Contact details saved.');
     } else if (currentStep === 2) {
       if (!profile.college || !profile.degree) {
-        triggerStepPopup("Please fill in college name and degree.");
+        triggerStepPopup('Please fill in college name and degree.');
         return false;
       }
-      triggerStepPopup("Education details saved.");
+      triggerStepPopup('Education details saved.');
     } else if (currentStep === 3) {
-      triggerStepPopup("Work experience saved.");
+      triggerStepPopup('Work experience saved.');
     } else if (currentStep === 4) {
-      triggerStepPopup("Projects and achievements saved.");
+      triggerStepPopup('Projects and achievements saved.');
     }
     return true;
   };
@@ -156,7 +173,7 @@ export default function Home() {
     // Check that at least two platforms are selected
     const selectedPlatforms = Object.entries(profile.platforms).filter(([k, v]) => v);
     if (selectedPlatforms.length < 2) {
-      setPlatformError("Please select and fill out profile links for at least two job platforms.");
+      setPlatformError('Please select and fill out profile links for at least two job platforms.');
       return;
     }
 
@@ -168,34 +185,44 @@ export default function Home() {
       }
     }
     
-    setPlatformError("");
-    triggerStepPopup("Master Resume compiled and finalized.");
+    setPlatformError('');
+    triggerStepPopup('Master Resume compiled and finalized.');
     setCurrentStep(6); // Step 6 is the final resume reveal
   };
 
   const resetForm = () => {
     setProfile({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      location: "",
-      college: "",
-      degree: "",
-      major: "",
-      gradYear: "",
-      cgpa: "",
-      skills: "",
-      experience: [{ company: "", role: "", duration: "", description: "" }],
-      projects: [{ title: "", tech: "", description: "" }],
-      extracurricular: "",
-      githubUrl: "",
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      location: '',
+      college: '',
+      degree: '',
+      major: '',
+      gradYear: '',
+      cgpa: '',
+      skills: '',
+      experience: [{ company: '', role: '', duration: '', description: '' }],
+      projects: [{ title: '', tech: '', description: '' }],
+      extracurricular: '',
+      githubUrl: '',
       platforms: { linkedin: false, naukri: false, indeed: false, wellfound: false, glassdoor: false },
-      platformUrls: { linkedin: "", naukri: "", indeed: "", wellfound: "", glassdoor: "" }
+      platformUrls: { linkedin: '', naukri: '', indeed: '', wellfound: '', glassdoor: '' }
     });
     setCurrentStep(1);
     setShowWizard(false);
   };
+
+  if (loading) {
+    return (
+      <div className="fixed inset-0 bg-[#000000] z-50 flex flex-col justify-end p-12 text-white select-none">
+        <div className="text-[15vw] font-bold leading-none font-mono tracking-tighter">
+          {String(percent).padStart(3, '0')}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#0b0f19] text-[#e2e8f0] font-sans flex flex-col relative overflow-x-hidden">
@@ -207,321 +234,236 @@ export default function Home() {
         </div>
       )}
 
-      {/* Styles for Animations */}
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes marquee {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation: marquee 25s linear infinite;
-        }
-      `}} />
-
       {/* Header */}
-      <header className="border-b border-[#1e293b] bg-[#0f172a] py-4 px-8 sticky top-0 z-10 flex items-center justify-between">
+      <header className="bg-[#0b0f19]/80 backdrop-blur-md border-b border-[#1e293b] py-6 px-8 lg:px-16 sticky top-0 z-40 flex items-center justify-between select-none">
         <div className="flex items-center gap-3">
-          <span className="text-xl font-bold tracking-tight text-white">ApplyJack Dashboard</span>
-          <span className="text-xs bg-[#1e293b] text-[#94a3b8] px-2.5 py-0.5 rounded-full font-mono">Profile Builder</span>
+          <span className="text-xl font-bold tracking-widest text-white uppercase font-sans">LUSION</span>
         </div>
         <div className="flex items-center gap-4">
+          <button className="border border-zinc-800 bg-[#0f172a] hover:bg-zinc-800 text-white text-xs font-semibold px-4 py-2.5 rounded-full transition-all">
+            LET'S TALK
+          </button>
+          
           {!showWizard ? (
             <button 
-              onClick={() => setShowWizard(true)}
-              className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-all"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setShowWizard(true);
+              }}
+              className="bg-white hover:bg-zinc-200 text-black text-xs font-semibold px-4 py-2.5 rounded-full transition-all"
             >
-              Get Started
+              MENU ••
             </button>
           ) : (
             <button 
               onClick={() => setShowWizard(false)}
-              className="bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-all"
+              className="bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-semibold px-4 py-2.5 rounded-full transition-all"
             >
-              Back to About Us
+              CLOSE
             </button>
           )}
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span className="text-xs text-emerald-400 font-medium font-mono">Autopilot Connected</span>
-          </div>
         </div>
       </header>
 
       {/* Main Workspace Layout */}
-      <main className="flex-1 flex flex-col overflow-y-auto">
+      <main className="flex-1 flex flex-col">
         
         {!showWizard ? (
           /* Landing Page: 100% exact copy of Lusion About Us */
           <div className="bg-[#080b12] text-white flex flex-col">
             
             {/* Hero Section */}
-            <section className="py-20 px-8 lg:px-20 border-b border-[#1e293b] flex flex-col gap-12 min-h-[80vh] justify-center relative">
+            <section className="py-32 px-8 lg:px-16 border-b border-zinc-900 flex flex-col gap-12 min-h-[85vh] justify-center relative">
               <div className="flex flex-col gap-4">
-                <span className="text-xs font-mono text-indigo-400 tracking-widest uppercase">We Are</span>
-                <h1 className="text-6xl lg:text-9xl font-bold tracking-tighter text-white leading-none">
+                <span className="text-xs font-mono text-zinc-500 tracking-widest uppercase">WE ARE</span>
+                <h1 className="text-7xl lg:text-9xl font-bold tracking-tighter text-white leading-none">
                   LUSION
                 </h1>
-                <p className="text-xl lg:text-3xl text-zinc-400 tracking-tight font-light max-w-3xl leading-relaxed mt-2">
+                <p className="text-xl lg:text-3xl text-zinc-400 tracking-tight font-light max-w-4xl leading-relaxed mt-4">
                   A worldwide team of specialists in design, motion, 3D, and technology working together to turn ambitious ideas into immersive digital experiences.
                 </p>
               </div>
 
-              <div className="flex items-center justify-between border-t border-[#1e293b] pt-8 mt-12">
-                <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider">CRAFTING UNIQUE DIGITAL EXPERIENCES</span>
-                <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider animate-bounce">SCROLL TO EXPLORE</span>
+              <div className="flex items-center justify-between border-t border-zinc-900 pt-8 mt-16 text-zinc-500 font-mono text-xs tracking-wider">
+                <span>CRAFTING UNIQUE DIGITAL EXPERIENCES</span>
+                <span className="animate-bounce">SCROLL TO EXPLORE</span>
               </div>
             </section>
 
             {/* Team Section */}
-            <section className="py-20 px-8 lg:px-20 border-b border-[#1e293b] flex flex-col lg:flex-row gap-16">
+            <section className="py-24 px-8 lg:px-16 border-b border-zinc-900 flex flex-col lg:flex-row gap-16">
               <div className="lg:w-1/3 flex flex-col gap-6">
                 <h2 className="text-4xl font-bold tracking-tight text-white uppercase">TEAM</h2>
-                <p className="text-sm text-zinc-400 leading-relaxed">
+                <p className="text-sm text-zinc-400 leading-relaxed font-sans">
                   We combine different disciplines into one creative production process, allowing ideas to move from concept to execution with clarity and craft. The result is digital work that feels distinctive, technically refined, and built to make a lasting impact.
                 </p>
               </div>
 
-              <div className="lg:w-2/3 flex flex-col gap-6 border-l border-[#1e293b] pl-8 lg:pl-16">
+              <div className="lg:w-2/3 flex flex-col gap-6 border-l border-zinc-900 pl-8 lg:pl-16">
                 <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-2 block">Key People</span>
                 
                 <div className="flex flex-col gap-8">
                   <div className="flex items-center justify-between border-b border-zinc-900 pb-4">
                     <div className="flex flex-col">
-                      <span className="text-lg font-semibold text-white">Edan Kwan</span>
-                      <span className="text-xs text-zinc-400">Cofounder & Creative Director</span>
+                      <span className="text-lg font-semibold text-white font-sans">Edan Kwan</span>
+                      <span className="text-xs text-zinc-400 font-mono">Cofounder & Creative Director</span>
                     </div>
-                    <span className="text-xs font-mono text-indigo-400">[001]</span>
+                    <span className="text-xs font-mono text-zinc-500">[[ 001 ]]</span>
                   </div>
 
                   <div className="flex items-center justify-between border-b border-zinc-900 pb-4">
                     <div className="flex flex-col">
-                      <span className="text-lg font-semibold text-white">Ann Kwan</span>
-                      <span className="text-xs text-zinc-400">Cofounder & Producer</span>
+                      <span className="text-lg font-semibold text-white font-sans">Ann Kwan</span>
+                      <span className="text-xs text-zinc-400 font-mono">Cofounder & Producer</span>
                     </div>
-                    <span className="text-xs font-mono text-indigo-400">[002]</span>
+                    <span className="text-xs font-mono text-zinc-500">[[ 002 ]]</span>
                   </div>
 
                   <div className="flex items-center justify-between border-b border-zinc-900 pb-4">
                     <div className="flex flex-col">
-                      <span className="text-lg font-semibold text-white">Christophe</span>
-                      <span className="text-xs text-zinc-400">Technical Lead</span>
+                      <span className="text-lg font-semibold text-white font-sans">Christophe</span>
+                      <span className="text-xs text-zinc-400 font-mono">Technical Lead</span>
                     </div>
-                    <span className="text-xs font-mono text-indigo-400">[003]</span>
+                    <span className="text-xs font-mono text-zinc-500">[[ 003 ]]</span>
                   </div>
                 </div>
               </div>
             </section>
 
-            {/* Brands We Work With */}
-            <section className="py-16 bg-[#0b0f19] border-b border-[#1e293b] overflow-hidden">
-              <div className="px-8 lg:px-20 mb-8 flex flex-col gap-2">
-                <h3 className="text-xs font-mono text-zinc-500 uppercase tracking-widest">BRANDS WE WORK WITH</h3>
-                <p className="text-sm text-zinc-400">Trusted by global brands, cultural institutions, and forward thinking teams.</p>
-              </div>
-
-              <div className="relative w-full overflow-hidden flex">
-                <div className="flex gap-16 whitespace-nowrap animate-marquee py-4">
-                  {/* First loop */}
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">COCA-COLA</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">MAXMARA</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">CALVIN KLEIN</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">PORSCHE</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">WALLPAPER</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">HYUNDAI</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">GOOGLE</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">APPLE</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">SONY</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">NVIDIA</span>
-                  
-                  {/* Second loop for seamless join */}
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">COCA-COLA</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">MAXMARA</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">CALVIN KLEIN</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">PORSCHE</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">WALLPAPER</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">HYUNDAI</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">GOOGLE</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">APPLE</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">SONY</span>
-                  <span className="text-2xl lg:text-4xl font-bold tracking-tight text-zinc-600 uppercase">NVIDIA</span>
-                </div>
-              </div>
-            </section>
-
-            {/* Awards Section */}
-            <section className="py-20 px-8 lg:px-20 border-b border-[#1e293b] flex flex-col gap-12">
-              <div className="flex items-center justify-between border-b border-[#1e293b] pb-6">
-                <h2 className="text-4xl font-bold tracking-tight text-white uppercase">AWARDS</h2>
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl font-mono font-bold text-indigo-400">58</span>
-                  <span className="text-xs text-zinc-500 uppercase tracking-wider font-mono">Total Wins</span>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div className="border border-zinc-900 p-6 rounded-xl bg-[#0f172a]/30 flex flex-col justify-between h-[220px]">
-                  <div className="flex flex-col gap-2">
-                    <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest">[AWWWARDS]</span>
-                    <h4 className="text-lg font-bold text-white">Developer Site of the Year</h4>
-                  </div>
-                  <span className="text-sm text-zinc-400">Awarded for outstanding engineering and production performance.</span>
-                </div>
-
-                <div className="border border-zinc-900 p-6 rounded-xl bg-[#0f172a]/30 flex flex-col justify-between h-[220px]">
-                  <div className="flex flex-col gap-2">
-                    <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest">[FWA]</span>
-                    <h4 className="text-lg font-bold text-white">Site of the Year</h4>
-                  </div>
-                  <span className="text-sm text-zinc-400">Recognizing cutting-edge innovation and high-fidelity creative concepts.</span>
-                </div>
-
-                <div className="border border-zinc-900 p-6 rounded-xl bg-[#0f172a]/30 flex flex-col justify-between h-[220px]">
-                  <div className="flex flex-col gap-2">
-                    <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest">[CSSDA]</span>
-                    <h4 className="text-lg font-bold text-white">Agency Site of the Year</h4>
-                  </div>
-                  <span className="text-sm text-zinc-400">Honoring excellence in design, usability, and modern code standards.</span>
-                </div>
-              </div>
-            </section>
-
-            {/* Area of Expertise */}
-            <section className="py-20 px-8 lg:px-20 border-b border-[#1e293b] flex flex-col gap-12">
-              <div className="flex flex-col gap-4">
-                <h2 className="text-4xl font-bold tracking-tight text-white uppercase">AREA OF EXPERTISE</h2>
-                <p className="text-sm text-zinc-400 max-w-xl">Multidisciplinary expertise across strategy, creative, technology, and production.</p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                {/* Card 1 */}
-                <div className="border border-zinc-900 p-6 rounded-xl bg-[#0f172a]/30 flex flex-col gap-6">
-                  <div className="flex items-center justify-between border-b border-[#1e293b] pb-3">
-                    <span className="text-sm font-bold text-white uppercase">Strategy</span>
-                    <span className="text-xs font-mono text-indigo-400">[S]</span>
-                  </div>
-                  <ul className="flex flex-col gap-2 text-xs text-zinc-400 font-mono">
-                    <li>Digital Experience Strategy</li>
-                    <li>Technology Strategy</li>
-                    <li>Creative Direction</li>
-                    <li>Discovery & Research</li>
-                  </ul>
-                </div>
-
-                {/* Card 2 */}
-                <div className="border border-zinc-900 p-6 rounded-xl bg-[#0f172a]/30 flex flex-col gap-6">
-                  <div className="flex items-center justify-between border-b border-[#1e293b] pb-3">
-                    <span className="text-sm font-bold text-white uppercase">Creative</span>
-                    <span className="text-xs font-mono text-indigo-400">[C]</span>
-                  </div>
-                  <ul className="flex flex-col gap-2 text-xs text-zinc-400 font-mono">
-                    <li>Art Direction</li>
-                    <li>Experience Design</li>
-                    <li>Concept Development</li>
-                    <li>Prototyping</li>
-                  </ul>
-                </div>
-
-                {/* Card 3 */}
-                <div className="border border-zinc-900 p-6 rounded-xl bg-[#0f172a]/30 flex flex-col gap-6">
-                  <div className="flex items-center justify-between border-b border-[#1e293b] pb-3">
-                    <span className="text-sm font-bold text-white uppercase">Technology</span>
-                    <span className="text-xs font-mono text-indigo-400">[T]</span>
-                  </div>
-                  <ul className="flex flex-col gap-2 text-xs text-zinc-400 font-mono">
-                    <li>Creative Development</li>
-                    <li>WebGL & 3D Interactive</li>
-                    <li>System Engineering</li>
-                    <li>Speed & Performance</li>
-                  </ul>
-                </div>
-
-                {/* Card 4 */}
-                <div className="border border-zinc-900 p-6 rounded-xl bg-[#0f172a]/30 flex flex-col gap-6">
-                  <div className="flex items-center justify-between border-b border-[#1e293b] pb-3">
-                    <span className="text-sm font-bold text-white uppercase">3D & Motion</span>
-                    <span className="text-xs font-mono text-indigo-400">[M]</span>
-                  </div>
-                  <ul className="flex flex-col gap-2 text-xs text-zinc-400 font-mono">
-                    <li>3D Modeling</li>
-                    <li>Animation</li>
-                    <li>Visual Effects</li>
-                    <li>Shaders & Graphics</li>
-                  </ul>
-                </div>
-
-              </div>
-            </section>
-
-            {/* Talks & Articles Section */}
-            <section className="py-20 px-8 lg:px-20 border-b border-[#1e293b] flex flex-col lg:flex-row gap-16">
+            {/* Area of Expertise (100% exact styling matching user screenshot) */}
+            <section className="py-24 px-8 lg:px-16 bg-[#1a2ffb] text-black flex flex-col gap-12 relative">
               
-              {/* Left Column: Articles */}
-              <div className="flex-1 flex flex-col gap-6">
-                <h3 className="text-xl font-bold text-white uppercase tracking-wider">Articles</h3>
-                <div className="flex flex-col gap-4">
-                  <a href="https://newsroom.porsche.com" target="_blank" className="border-b border-zinc-900 pb-3 flex items-center justify-between group">
-                    <span className="text-sm text-zinc-400 group-hover:text-white transition-all">Porsche Newsroom - Driven By Dreams</span>
-                    <span className="text-xs font-mono text-zinc-600">[2023]</span>
-                  </a>
-                  <a href="https://www.wallpaper.com" target="_blank" className="border-b border-zinc-900 pb-3 flex items-center justify-between group">
-                    <span className="text-sm text-zinc-400 group-hover:text-white transition-all">Wallpaper - Driven by Dreams Short Film</span>
-                    <span className="text-xs font-mono text-zinc-600">[2023]</span>
-                  </a>
-                  <a href="https://www.operanorth.co.uk" target="_blank" className="border-b border-zinc-900 pb-3 flex items-center justify-between group">
-                    <span className="text-sm text-zinc-400 group-hover:text-white transition-all">Opera North - The Turn of the Screw</span>
-                    <span className="text-xs font-mono text-zinc-600">[2022]</span>
-                  </a>
+              {/* Logo background decoration or title */}
+              <div className="flex items-center justify-between select-none">
+                <span className="text-white text-2xl font-bold tracking-widest uppercase">LUSION</span>
+                <div className="flex items-center gap-4">
+                  <span className="w-10 h-10 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white font-mono text-sm">—</span>
+                  <button className="bg-black text-white text-xs font-semibold px-4 py-2 rounded-full font-sans">LET'S TALK •</button>
+                  <button className="bg-white text-black text-xs font-semibold px-4 py-2 rounded-full font-sans">MENU ••</button>
                 </div>
               </div>
 
-              {/* Right Column: Talks */}
-              <div className="flex-1 flex flex-col gap-6">
-                <h3 className="text-xl font-bold text-white uppercase tracking-wider">Talks</h3>
-                <div className="flex flex-col gap-4">
-                  <div className="border-b border-zinc-900 pb-3 flex items-center justify-between">
-                    <span className="text-sm text-zinc-400 font-semibold">Digital Design Days</span>
-                    <span className="text-xs font-mono text-zinc-500">Oct 2024 Milan</span>
+              {/* Card Grid matching screenshot */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+                
+                {/* STRATEGY CARD */}
+                <div className="bg-[#ffffff] rounded-[24px] p-8 flex flex-col justify-between min-h-[460px] shadow-2xl relative">
+                  <div>
+                    <div className="flex items-center justify-between mb-8 select-none">
+                      <h3 className="text-xl font-bold tracking-wider text-black font-sans">STRATEGY</h3>
+                      {/* stylized block logo */}
+                      <span className="text-xl font-black text-black font-mono">S</span>
+                    </div>
+                    
+                    <ul className="flex flex-col gap-3 font-sans text-[13px] text-zinc-800">
+                      <li className="pb-3 border-b border-dashed border-zinc-200">Digital Experience Strategy</li>
+                      <li className="pb-3 border-b border-dashed border-zinc-200">Technology Strategy</li>
+                      <li className="pb-3 border-b border-dashed border-zinc-200">Creative Direction</li>
+                      <li className="pb-3 border-b border-dashed border-zinc-200">Discovery</li>
+                      <li className="pb-3">Research</li>
+                    </ul>
                   </div>
-                  <div className="border-b border-zinc-900 pb-3 flex items-center justify-between">
-                    <span className="text-sm text-zinc-400 font-semibold">Awwwards Conf</span>
-                    <span className="text-xs font-mono text-zinc-500">Oct 2023 Amsterdam</span>
-                  </div>
-                  <div className="border-b border-zinc-900 pb-3 flex items-center justify-between">
-                    <span className="text-sm text-zinc-400 font-semibold">KIKK Festival</span>
-                    <span className="text-xs font-mono text-zinc-500">Oct 2023 Namur</span>
+
+                  <div className="flex items-center justify-between mt-8 border-t border-zinc-100 pt-4 select-none">
+                    <span className="text-sm font-black text-zinc-300 font-mono">S</span>
+                    <span className="rotate-180 text-xs font-mono text-zinc-400 tracking-widest uppercase">STRATEGY</span>
                   </div>
                 </div>
+
+                {/* CREATIVE CARD */}
+                <div className="bg-[#ffffff] rounded-[24px] p-8 flex flex-col justify-between min-h-[460px] shadow-2xl relative">
+                  <div>
+                    <div className="flex items-center justify-between mb-8 select-none">
+                      <h3 className="text-xl font-bold tracking-wider text-black font-sans">CREATIVE</h3>
+                      <span className="text-xl font-black text-black font-mono">C</span>
+                    </div>
+                    
+                    <ul className="flex flex-col gap-3 font-sans text-[13px] text-zinc-800">
+                      <li className="pb-3 border-b border-dashed border-zinc-200">Art Direction</li>
+                      <li className="pb-3 border-b border-dashed border-zinc-200">UX/UI Design</li>
+                      <li className="pb-3 border-b border-dashed border-zinc-200">Motion Design</li>
+                      <li className="pb-3 border-b border-dashed border-zinc-200">Interactive Design</li>
+                      <li className="pb-3">Illustration</li>
+                    </ul>
+                  </div>
+
+                  <div className="flex items-center justify-between mt-8 border-t border-zinc-100 pt-4 select-none">
+                    <span className="text-sm font-black text-zinc-300 font-mono">C</span>
+                    <span className="rotate-180 text-xs font-mono text-zinc-400 tracking-widest uppercase">CREATIVE</span>
+                  </div>
+                </div>
+
+                {/* TECH CARD */}
+                <div className="bg-[#ffffff] rounded-[24px] p-8 flex flex-col justify-between min-h-[460px] shadow-2xl relative">
+                  <div>
+                    <div className="flex items-center justify-between mb-8 select-none">
+                      <h3 className="text-xl font-bold tracking-wider text-black font-sans">TECH</h3>
+                      <span className="text-xl font-black text-black font-mono">T</span>
+                    </div>
+                    
+                    <ul className="flex flex-col gap-3 font-sans text-[13px] text-zinc-800">
+                      <li className="pb-3 border-b border-dashed border-zinc-200">WebGL Development</li>
+                      <li className="pb-3 border-b border-dashed border-zinc-200">Front End Development</li>
+                      <li className="pb-3 border-b border-dashed border-zinc-200">Unity/Unreal</li>
+                      <li className="pb-3 border-b border-dashed border-zinc-200">Interactive Installations</li>
+                      <li className="pb-3">AR and VR Experiences</li>
+                    </ul>
+                  </div>
+
+                  <div className="flex items-center justify-between mt-8 border-t border-zinc-100 pt-4 select-none">
+                    <span className="text-sm font-black text-zinc-300 font-mono">T</span>
+                    <span className="rotate-180 text-xs font-mono text-zinc-400 tracking-widest uppercase">TECH</span>
+                  </div>
+                </div>
+
+                {/* PRODUCTION CARD */}
+                <div className="bg-[#ffffff] rounded-[24px] p-8 flex flex-col justify-between min-h-[460px] shadow-2xl relative">
+                  <div>
+                    <div className="flex items-center justify-between mb-8 select-none">
+                      <h3 className="text-xl font-bold tracking-wider text-black font-sans">PRODUCTION</h3>
+                      <span className="text-xl font-black text-black font-mono">P</span>
+                    </div>
+                    
+                    <ul className="flex flex-col gap-3 font-sans text-[13px] text-zinc-800">
+                      <li className="pb-3 border-b border-dashed border-zinc-200">Procedural Modeling</li>
+                      <li className="pb-3 border-b border-dashed border-zinc-200">3D Asset Creation</li>
+                      <li className="pb-3 border-b border-dashed border-zinc-200">3D Optimization</li>
+                      <li className="pb-3 border-b border-dashed border-zinc-200">Animation</li>
+                      <li className="pb-3">3D Pipeline Development</li>
+                    </ul>
+                  </div>
+
+                  <div className="flex items-center justify-between mt-8 border-t border-zinc-100 pt-4 select-none">
+                    <span className="text-sm font-black text-zinc-300 font-mono">P</span>
+                    <span className="rotate-180 text-xs font-mono text-zinc-400 tracking-widest uppercase">PRODUCTION</span>
+                  </div>
+                </div>
+
               </div>
 
-            </section>
-
-            {/* Bottom Call To Action Button (Redirects to Onboarding Wizard) */}
-            <section className="py-32 px-8 lg:px-20 text-center flex flex-col items-center justify-center gap-8 bg-[#0f172a]/20">
-              <div className="flex flex-col gap-3 max-w-xl">
-                <h2 className="text-3xl lg:text-5xl font-bold tracking-tight text-white uppercase">Ready to launch Autopilot?</h2>
-                <p className="text-sm text-zinc-400">Compile your master resume and start auto-applying to top tech roles instantly.</p>
+              {/* Call To Action Transition Button */}
+              <div className="flex flex-col items-center justify-center pt-20 pb-8">
+                <button 
+                  onClick={() => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    setShowWizard(true);
+                  }}
+                  className="px-10 py-5 rounded-full bg-black text-white hover:bg-zinc-900 font-bold text-lg tracking-wider transition-all duration-300 transform hover:scale-105 shadow-2xl"
+                >
+                  ENTER WIZARD PROCESS
+                </button>
               </div>
 
-              <button 
-                onClick={() => {
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                  setShowWizard(true);
-                }}
-                className="mt-4 px-10 py-5 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 font-bold text-white text-lg tracking-wide shadow-2xl transition-all duration-300 transform hover:scale-105"
-              >
-                ENTER APPLICATION WIZARD
-              </button>
             </section>
 
           </div>
         ) : (
           /* Onboarding Wizard Form & Preview Layout */
-          <div className="flex-1 flex flex-col h-[calc(100vh-57px)] overflow-hidden">
+          <div className="flex-grow flex flex-col h-[calc(100vh-77px)] overflow-hidden bg-[#0b0f19]">
             
             {currentStep === 6 ? (
               /* Step 6: Full Screen Resume Reveal */
-              <div className="flex-1 flex flex-col lg:flex-row overflow-hidden bg-[#080b12]">
+              <div className="flex-grow flex flex-col lg:flex-row overflow-hidden bg-[#080b12]">
                 {/* Reveal Summary sidebar */}
                 <div className="w-full lg:w-1/3 p-8 border-r border-[#1e293b] flex flex-col justify-between overflow-y-auto bg-[#0b0f19]">
                   <div className="flex flex-col gap-6">
@@ -699,7 +641,7 @@ export default function Home() {
                         <div 
                           key={step}
                           className={`flex-1 h-1.5 rounded-full transition-all ${
-                            currentStep >= step ? "bg-indigo-500" : "bg-[#1e293b]"
+                            currentStep >= step ? 'bg-indigo-500' : 'bg-[#1e293b]'
                           }`}
                         />
                       ))}
@@ -834,7 +776,7 @@ export default function Home() {
                                 <div className="flex flex-col gap-1.5">
                                   <label className="text-xs font-semibold text-[#94a3b8]">Company</label>
                                   <input 
-                                    type="text" value={exp.company} onChange={(e) => handleExperienceChange(idx, "company", e.target.value)}
+                                    type="text" value={exp.company} onChange={(e) => handleExperienceChange(idx, 'company', e.target.value)}
                                     placeholder="Google"
                                     className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none placeholder:text-[#334155]"
                                   />
@@ -842,7 +784,7 @@ export default function Home() {
                                 <div className="flex flex-col gap-1.5">
                                   <label className="text-xs font-semibold text-[#94a3b8]">Role</label>
                                   <input 
-                                    type="text" value={exp.role} onChange={(e) => handleExperienceChange(idx, "role", e.target.value)}
+                                    type="text" value={exp.role} onChange={(e) => handleExperienceChange(idx, 'role', e.target.value)}
                                     placeholder="Frontend Intern"
                                     className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none placeholder:text-[#334155]"
                                   />
@@ -850,46 +792,46 @@ export default function Home() {
                               </div>
                               <div className="flex flex-col gap-1.5">
                                 <label className="text-xs font-semibold text-[#94a3b8]">Duration</label>
-                                  <input 
-                                    type="text" value={exp.duration} onChange={(e) => handleExperienceChange(idx, "duration", e.target.value)}
-                                    placeholder="June 2025 - August 2025"
-                                    className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none placeholder:text-[#334155]"
-                                  />
-                                </div>
-                                <div className="flex flex-col gap-1.5">
-                                  <label className="text-xs font-semibold text-[#94a3b8]">Description</label>
-                                  <textarea 
-                                    rows="3" value={exp.description} onChange={(e) => handleExperienceChange(idx, "description", e.target.value)}
-                                    placeholder="Describe your achievements and metrics."
-                                    className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none resize-none placeholder:text-[#334155]"
-                                  />
-                                </div>
+                                <input 
+                                  type="text" value={exp.duration} onChange={(e) => handleExperienceChange(idx, 'duration', e.target.value)}
+                                  placeholder="June 2025 - August 2025"
+                                  className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none placeholder:text-[#334155]"
+                                />
                               </div>
-                            ))}
-                          </div>
-                        )}
-
-                        {/* Step 4: Projects & Achievements */}
-                        {currentStep === 4 && (
-                          <div className="flex flex-col gap-5">
-                            <div className="flex items-center justify-between">
-                              <div className="flex flex-col gap-1">
-                                <h2 className="text-xl font-bold text-white">Projects</h2>
-                                <p className="text-xs text-[#94a3b8]">Add notable software projects you have built.</p>
+                              <div className="flex flex-col gap-1.5">
+                                <label className="text-xs font-semibold text-[#94a3b8]">Description</label>
+                                <textarea 
+                                  rows="3" value={exp.description} onChange={(e) => handleExperienceChange(idx, 'description', e.target.value)}
+                                  placeholder="Describe your achievements and metrics."
+                                  className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none resize-none placeholder:text-[#334155]"
+                                />
                               </div>
-                              <button 
-                                type="button" onClick={addProject}
-                                className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold"
-                              >
-                                Add Project
-                              </button>
                             </div>
-                            {profile.projects.map((proj, idx) => (
-                              <div key={idx} className="border border-[#1e293b] rounded-xl p-4 flex flex-col gap-4 bg-[#0b0f19]">
-                                <div className="flex flex-col gap-1.5">
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Step 4: Projects & Achievements */}
+                      {currentStep === 4 && (
+                        <div className="flex flex-col gap-5">
+                          <div className="flex items-center justify-between">
+                            <div className="flex flex-col gap-1">
+                              <h2 className="text-xl font-bold text-white">Projects</h2>
+                              <p className="text-xs text-[#94a3b8]">Add notable software projects you have built.</p>
+                            </div>
+                            <button 
+                              type="button" onClick={addProject}
+                              className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold"
+                            >
+                              Add Project
+                            </button>
+                          </div>
+                          {profile.projects.map((proj, idx) => (
+                            <div key={idx} className="border border-[#1e293b] rounded-xl p-4 flex flex-col gap-4 bg-[#0b0f19]">
+                              <div className="flex flex-col gap-1.5">
                                   <label className="text-xs font-semibold text-[#94a3b8]">Project Title</label>
                                   <input 
-                                    type="text" value={proj.title} onChange={(e) => handleProjectChange(idx, "title", e.target.value)}
+                                    type="text" value={proj.title} onChange={(e) => handleProjectChange(idx, 'title', e.target.value)}
                                     placeholder="E-commerce Web App"
                                     className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none placeholder:text-[#334155]"
                                   />
@@ -897,7 +839,7 @@ export default function Home() {
                                 <div className="flex flex-col gap-1.5">
                                   <label className="text-xs font-semibold text-[#94a3b8]">Technologies Used</label>
                                   <input 
-                                    type="text" value={proj.tech} onChange={(e) => handleProjectChange(idx, "tech", e.target.value)}
+                                    type="text" value={proj.tech} onChange={(e) => handleProjectChange(idx, 'tech', e.target.value)}
                                     placeholder="React, Firebase, Stripe API"
                                     className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none placeholder:text-[#334155]"
                                   />
@@ -905,7 +847,7 @@ export default function Home() {
                                 <div className="flex flex-col gap-1.5">
                                   <label className="text-xs font-semibold text-[#94a3b8]">Project Description</label>
                                   <textarea 
-                                    rows="3" value={proj.description} onChange={(e) => handleProjectChange(idx, "description", e.target.value)}
+                                    rows="3" value={proj.description} onChange={(e) => handleProjectChange(idx, 'description', e.target.value)}
                                     placeholder="Describe your design and performance gains."
                                     className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none resize-none placeholder:text-[#334155]"
                                   />
