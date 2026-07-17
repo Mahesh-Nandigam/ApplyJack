@@ -244,7 +244,7 @@ export default function BuilderPage() {
       )}
 
       {/* Header */}
-      <header className="bg-[#0b0f19]/80 backdrop-blur-md border-b border-[#1e293b] py-6 px-8 lg:px-16 sticky top-0 z-40 flex items-center justify-between select-none">
+      <header className="print:hidden bg-[#0b0f19]/80 backdrop-blur-md border-b border-[#1e293b] py-6 px-8 lg:px-16 sticky top-0 z-40 flex items-center justify-between select-none">
         <div className="flex items-center gap-3">
           <span className="text-xl font-bold tracking-widest text-white uppercase font-sans cursor-pointer" onClick={() => window.location.href='/about'}>
             LUSION
@@ -270,9 +270,9 @@ export default function BuilderPage() {
         
         {currentStep === 7 ? (
           /* Step 6: Full Screen Resume Reveal */
-          <div className="flex-grow flex flex-col lg:flex-row overflow-hidden bg-[#080b12]">
+          <div className="flex-grow flex flex-col lg:flex-row overflow-hidden bg-[#080b12] print:overflow-visible">
             {/* Reveal Summary sidebar */}
-            <div className="w-full lg:w-1/3 p-8 border-r border-[#1e293b] flex flex-col justify-between overflow-y-auto bg-[#0b0f19]">
+            <div className="print:hidden w-full lg:w-1/3 p-8 border-r border-[#1e293b] flex flex-col justify-between overflow-y-auto bg-[#0b0f19]">
               <div className="flex flex-col gap-6">
                 <h2 className="text-2xl font-bold text-white tracking-tight">Your master resume is ready.</h2>
                 <p className="text-sm text-[#94a3b8] leading-relaxed">
@@ -315,8 +315,8 @@ export default function BuilderPage() {
             </div>
 
             {/* Resume paper preview sheet */}
-            <div className="flex-1 p-8 overflow-y-auto flex items-start justify-center bg-[#1a2ffb]">
-              <div className="w-full max-w-[800px] bg-white text-black p-12 shadow-2xl rounded-sm flex flex-col justify-start select-none min-h-[1100px]">
+            <div className="flex-1 p-8 overflow-y-auto flex items-start justify-center bg-[#1a2ffb] print:p-0 print:bg-white print:overflow-visible">
+              <div id="resume-preview-sheet" className="w-full max-w-[800px] bg-white text-black p-12 shadow-2xl rounded-sm flex flex-col justify-start select-none min-h-[1100px] print:w-[210mm] print:h-[297mm] print:min-h-0 print:p-0 print:shadow-none print:m-0">
                 
                 {/* Header Details */}
                 <div className="flex flex-col items-center text-center pb-6 mb-6 border-b border-zinc-300">
@@ -751,7 +751,34 @@ export default function BuilderPage() {
         .animate-fadeIn {
           animation: fadeIn 0.4s ease-out forwards;
         }
-      `}</style>
+      `}
+        @media print {
+          body, html {
+            margin: 0;
+            padding: 0;
+            background: white !important;
+            height: auto !important;
+          }
+          /* Hide everything except the resume sheet */
+          body * {
+            visibility: hidden;
+          }
+          #resume-preview-sheet, #resume-preview-sheet * {
+            visibility: visible;
+          }
+          #resume-preview-sheet {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            padding: 10mm !important;
+          }
+          @page {
+            size: A4;
+            margin: 0;
+          }
+        }
+      </style>
     </div>
   );
 }
