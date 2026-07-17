@@ -8,11 +8,6 @@ const nextConfig = {
         destination: '/about',
         permanent: false,
       },
-      {
-        source: '/home',
-        destination: '/about',
-        permanent: false,
-      },
     ];
   },
   async rewrites() {
@@ -21,6 +16,13 @@ const nextConfig = {
       {
         source: '/about',
         destination: '/about.html',
+      },
+      // Proxy ALL /assets/* requests to lusion.co CDN
+      // The Lusion JS dynamically fetches 3D models, textures, audio, team photos at runtime
+      // These are too large to bundle and must be proxied
+      {
+        source: '/assets/:path*',
+        destination: 'https://lusion.co/assets/:path*',
       },
     ];
   },
