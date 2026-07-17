@@ -35,7 +35,29 @@ export default function DashboardPage() {
       setShowConnectModal(true);
     } else {
       // Trigger API / Modal webhook logic here
-      alert(`Initiating AI Agents for ${platform}...`);
+      // Alert the user that scraping is starting
+      triggerStepPopup(`Initiating Playwright Scraping for ${platform}...`);
+      
+      // Trigger Modal Webhook
+      fetch('https://mahesh-nandigam--applyjack-backend-fastapi-app.modal.run/trigger', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+            cookie: userProfile[cookieKey],
+            role: "Frontend Engineer" // Mock role for the demo
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+          if (data.status === "success") {
+              triggerStepPopup(data.message + " | Reached: " + data.page_title);
+          } else {
+              triggerStepPopup("Scraping error: " + JSON.stringify(data));
+          }
+      })
+      .catch(err => {
+          triggerStepPopup("Failed to trigger webhook: " + err.message);
+      });
     }
   };
 
