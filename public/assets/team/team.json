@@ -1,0 +1,37 @@
+[
+  {
+    "id": "edan",
+    "name": "Edan Kwan",
+    "role": "AUTOMATION ENGINEER"
+  },
+  {
+    "id": "ffi",
+    "name": "Ffion Morgan",
+    "role": "SYSTEMS ARCHITECT"
+  },
+  {
+    "id": "pierre",
+    "name": "Pierre Nottin",
+    "role": "DEPLOYMENT LEAD"
+  },
+  {
+    "id": "yannic",
+    "name": "Yannic Laurenz",
+    "role": "ALGORITHM SPECIALIST"
+  },
+  {
+    "id": "paul",
+    "name": "Paul Catoera",
+    "role": "INTEGRATION EXPERT"
+  },
+  {
+    "id": "andrii",
+    "name": "Andrii Ovsiannikov",
+    "role": "DATA SCIENTIST"
+  },
+  {
+    "id": "sunny",
+    "name": "Sunny",
+    "role": "EXECUTIVE AI OVERLORD"
+  }
+]
