@@ -306,8 +306,14 @@ export default function BuilderPage() {
                   DOWNLOAD PDF
                 </button>
                 <button 
+                  onClick={() => window.location.href='/dashboard'}
+                  className="w-full h-11 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-[#27272a] text-white font-semibold transition-all text-sm"
+                >
+                  GO TO DASHBOARD
+                </button>
+                <button 
                   onClick={resetForm}
-                  className="w-full h-11 rounded-lg bg-[#1e293b] hover:bg-zinc-800 border border-zinc-800 font-semibold transition-all text-sm"
+                  className="w-full h-11 rounded-lg bg-transparent border-2 border-[#27272a] text-zinc-400 font-semibold transition-all text-sm hover:text-white"
                 >
                   START OVER
                 </button>
