@@ -1,12 +1,62 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { supabase } from '../../lib/supabase';
 import { Search, Briefcase, Zap, Bell, CheckCircle2, User, Bot } from 'lucide-react';
 
 export default function DashboardPage() {
   const [url, setUrl] = useState('');
     const [isParsing, setIsParsing] = useState(false);
   const [aiResponse, setAiResponse] = useState('');
+
+  const [showConnectModal, setShowConnectModal] = useState(false);
+  const [activePlatform, setActivePlatform] = useState(null);
+  const [cookieValue, setCookieValue] = useState('');
+  const [userProfile, setUserProfile] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
+
+  // Fetch user profile on load
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const { data, error } = await supabase
+        .from('user_profiles')
+        .select('*')
+        .eq('email', 'mahesh@applyjack.ai')
+        .single();
+      if (data) setUserProfile(data);
+    };
+    fetchProfile();
+  }, []);
+
+  const handleAutoApply = (platform) => {
+    const cookieKey = platform.toLowerCase() + '_cookie';
+    if (!userProfile || !userProfile[cookieKey]) {
+      setActivePlatform(platform);
+      setShowConnectModal(true);
+    } else {
+      // Trigger API / Modal webhook logic here
+      alert(`Initiating AI Agents for ${platform}...`);
+    }
+  };
+
+  const handleSaveCookie = async () => {
+    setIsSaving(true);
+    const cookieKey = activePlatform.toLowerCase() + '_cookie';
+    
+    const { error } = await supabase
+      .from('user_profiles')
+      .update({ [cookieKey]: cookieValue })
+      .eq('email', 'mahesh@applyjack.ai');
+
+    if (!error) {
+      setUserProfile(prev => ({ ...prev, [cookieKey]: cookieValue }));
+      setShowConnectModal(false);
+      setCookieValue('');
+      alert(`${activePlatform} connected successfully!`);
+    }
+    setIsSaving(false);
+  };
+
 
   const notifications = [
     { platform: 'LinkedIn', count: 3, role: 'Full Stack Developer', color: '#0A66C2', icon: <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg> },
@@ -42,6 +92,36 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen w-full bg-[#09090b] text-zinc-50 font-sans flex flex-col overflow-x-hidden overflow-y-auto custom-scrollbar">
+
+      {/* Connect Account Modal */}
+      {showConnectModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+          <div className="bg-[#09090b] border border-[#27272a] p-8 rounded-3xl w-full max-w-md relative shadow-2xl">
+            <button onClick={() => setShowConnectModal(false)} className="absolute top-6 right-6 text-zinc-500 hover:text-white">
+              ✕
+            </button>
+            <h2 className="text-2xl font-bold text-white mb-2">Connect {activePlatform}</h2>
+            <p className="text-sm text-zinc-400 mb-6">
+              To enable Auto-Apply, paste your {activePlatform} Session Cookie (li_at). We need this to securely automate your applications.
+            </p>
+            <input 
+              type="text" 
+              value={cookieValue}
+              onChange={(e) => setCookieValue(e.target.value)}
+              placeholder={`Paste your ${activePlatform} cookie here...`}
+              className="w-full bg-zinc-900 border border-[#27272a] text-white px-4 py-3 rounded-xl focus:outline-none focus:border-emerald-500 transition-colors mb-6"
+            />
+            <button 
+              onClick={handleSaveCookie}
+              disabled={isSaving || !cookieValue}
+              className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-3.5 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSaving ? 'Connecting...' : 'Securely Connect Account'}
+            </button>
+          </div>
+        </div>
+      )}
+
       
       {/* Top 75%: Notification Cards */}
       <div className="flex-none min-h-[60vh] p-8 lg:p-12 flex flex-col border-b border-[#27272a] justify-center">
@@ -85,7 +165,7 @@ export default function DashboardPage() {
                   <p className="text-lg font-semibold text-zinc-300 mt-1 leading-snug group-hover:text-white transition-colors">{notif.role}</p>
                 </div>
 
-                <button className="w-full bg-zinc-900 text-white font-semibold text-sm px-4 py-3.5 rounded-xl border border-[#27272a] group-hover:bg-white group-hover:text-black group-hover:border-white transition-all duration-300 shadow-md">
+                <button onClick={() => handleAutoApply(notif.platform)} className="w-full bg-zinc-900 text-white font-semibold text-sm px-4 py-3.5 rounded-xl border border-[#27272a] group-hover:bg-white group-hover:text-black group-hover:border-white transition-all duration-300 shadow-md">
                   Auto-Apply Now
                 </button>
               </div>
