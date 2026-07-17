@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
 
 export async function GET(request) {
-  return NextResponse.redirect(new URL('/about.html', request.url));
+  return NextResponse.redirect(new URL('/about', request.url));
 }
