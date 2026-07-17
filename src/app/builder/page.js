@@ -234,17 +234,17 @@ export default function BuilderPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0f19] text-[#e2e8f0] font-sans flex flex-col relative overflow-hidden">
+    <div className="min-h-screen bg-[#09090b] text-zinc-50 font-sans flex flex-col relative overflow-hidden">
       
       {/* Toast Notification */}
       {showPopup && (
-        <div className="fixed top-6 right-6 bg-indigo-650 text-white px-5 py-3 rounded-lg shadow-xl border border-indigo-500/30 z-50 font-medium text-sm transition-all duration-300">
+        <div className="fixed top-6 right-6 bg-indigo-650 text-white px-5 py-3 rounded-lg shadow-xl border border-zinc-500/30 z-50 font-medium text-sm transition-all duration-300">
           {popupMessage}
         </div>
       )}
 
       {/* Header */}
-      <header className="print:hidden bg-[#0b0f19]/80 backdrop-blur-md border-b border-[#1e293b] py-6 px-8 lg:px-16 sticky top-0 z-40 flex items-center justify-between select-none">
+      <header className="print:hidden bg-[#09090b]/80 backdrop-blur-md border-b border-[#27272a] py-6 px-8 lg:px-16 sticky top-0 z-40 flex items-center justify-between select-none">
         <div className="flex items-center gap-3">
           <span className="text-xl font-bold tracking-widest text-white uppercase font-sans cursor-pointer" onClick={() => window.location.href='/about'}>
             LUSION
@@ -270,27 +270,27 @@ export default function BuilderPage() {
         
         {currentStep === 7 ? (
           /* Step 6: Full Screen Resume Reveal */
-          <div className="flex-grow flex flex-col lg:flex-row overflow-hidden bg-[#080b12] print:overflow-visible">
+          <div className="flex-grow flex flex-col lg:flex-row overflow-hidden bg-[#09090b] print:overflow-visible">
             {/* Reveal Summary sidebar */}
-            <div className="print:hidden w-full lg:w-1/3 p-8 border-r border-[#1e293b] flex flex-col justify-between overflow-y-auto bg-[#0b0f19]">
+            <div className="print:hidden w-full lg:w-1/3 p-8 border-r border-[#27272a] flex flex-col justify-between overflow-y-auto bg-[#09090b]">
               <div className="flex flex-col gap-6">
                 <h2 className="text-2xl font-bold text-white tracking-tight">Your master resume is ready.</h2>
-                <p className="text-sm text-[#94a3b8] leading-relaxed">
+                <p className="text-sm text-zinc-400 leading-relaxed">
                   We have mapped your data into a highly-optimized, ATS-friendly professional format.
                 </p>
                 
-                <div className="border-t border-[#1e293b] pt-5">
-                  <span className="text-xs text-[#64748b] uppercase tracking-wider font-semibold block mb-3">Linked Accounts</span>
+                <div className="border-t border-[#27272a] pt-5">
+                  <span className="text-xs text-zinc-500 uppercase tracking-wider font-semibold block mb-3">Linked Accounts</span>
                   <div className="flex flex-col gap-3">
                     {profile.githubUrl && (
-                      <div className="flex items-center justify-between text-xs font-mono bg-[#0f172a] p-2.5 rounded border border-[#1e293b]">
-                        <span className="text-[#94a3b8]">GitHub</span>
+                      <div className="flex items-center justify-between text-xs font-mono bg-[#09090b] p-2.5 rounded border border-[#27272a]">
+                        <span className="text-zinc-400">GitHub</span>
                         <span className="text-white truncate max-w-[150px]">{profile.githubUrl}</span>
                       </div>
                     )}
                     {profile.portfolioUrl && (
-                      <div className="flex items-center justify-between text-xs font-mono bg-[#0f172a] p-2.5 rounded border border-[#1e293b]">
-                        <span className="text-[#94a3b8]">Portfolio</span>
+                      <div className="flex items-center justify-between text-xs font-mono bg-[#09090b] p-2.5 rounded border border-[#27272a]">
+                        <span className="text-zinc-400">Portfolio</span>
                         <span className="text-white truncate max-w-[150px]">{profile.portfolioUrl}</span>
                       </div>
                     )}
@@ -433,8 +433,8 @@ export default function BuilderPage() {
           </div>
         ) : (
           /* Steps 1-5: Full Screen Form Layout (Hidden Preview) */
-          <div className="flex-grow flex items-center justify-center p-4 lg:p-8 bg-[#0b0f19] overflow-y-auto">
-            <div className="w-full max-w-[800px] bg-[#0f172a] border border-[#1e293b] rounded-2xl p-6 lg:p-10 shadow-2xl flex flex-col justify-between my-auto">
+          <div className="flex-grow flex items-center justify-center p-4 lg:p-8 bg-[#09090b] overflow-y-auto">
+            <div className="w-full max-w-[800px] bg-[#09090b] border border-[#27272a] rounded-2xl p-6 lg:p-10 shadow-2xl flex flex-col justify-between my-auto">
               
               <div>
                 {/* Step Indicators inside the card */}
@@ -443,7 +443,7 @@ export default function BuilderPage() {
                     <div 
                       key={step}
                       className={`flex-1 h-2 rounded-full transition-all ${
-                        currentStep >= step ? 'bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]' : 'bg-[#1e293b]'
+                        currentStep >= step ? 'bg-zinc-9000 shadow-[0_0_10px_rgba(99,102,241,0.5)]' : 'bg-[#1e293b]'
                       }`}
                     />
                   ))}
@@ -456,45 +456,45 @@ export default function BuilderPage() {
                     <div className="flex flex-col gap-6 animate-fadeIn">
                       <div className="flex flex-col gap-2">
                         <h2 className="text-3xl font-bold text-white tracking-tight">Let us know more about you.</h2>
-                        <p className="text-sm text-[#94a3b8]">Enter your primary contact details and a strong professional summary to get started.</p>
+                        <p className="text-sm text-zinc-400">Enter your primary contact details and a strong professional summary to get started.</p>
                       </div>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">First Name *</label>
-                          <input type="text" name="firstName" value={profile.firstName} onChange={handleChange} placeholder="John" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">First Name *</label>
+                          <input type="text" name="firstName" value={profile.firstName} onChange={handleChange} placeholder="John" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                         </div>
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Last Name *</label>
-                          <input type="text" name="lastName" value={profile.lastName} onChange={handleChange} placeholder="Doe" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Last Name *</label>
+                          <input type="text" name="lastName" value={profile.lastName} onChange={handleChange} placeholder="Doe" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                         </div>
                       </div>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Email Address *</label>
-                          <input type="email" name="email" value={profile.email} onChange={handleChange} placeholder="johndoe@email.com" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Email Address *</label>
+                          <input type="email" name="email" value={profile.email} onChange={handleChange} placeholder="johndoe@email.com" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                         </div>
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Phone Number</label>
-                          <input type="text" name="phone" value={profile.phone} onChange={handleChange} placeholder="+1 234 567 8900" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Phone Number</label>
+                          <input type="text" name="phone" value={profile.phone} onChange={handleChange} placeholder="+1 234 567 8900" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Location</label>
-                          <input type="text" name="location" value={profile.location} onChange={handleChange} placeholder="San Francisco, CA" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Location</label>
+                          <input type="text" name="location" value={profile.location} onChange={handleChange} placeholder="San Francisco, CA" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                         </div>
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Portfolio URL</label>
-                          <input type="text" name="portfolioUrl" value={profile.portfolioUrl} onChange={handleChange} placeholder="johndoe.dev" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Portfolio URL</label>
+                          <input type="text" name="portfolioUrl" value={profile.portfolioUrl} onChange={handleChange} placeholder="johndoe.dev" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                         </div>
                       </div>
 
                       <div className="flex flex-col gap-2">
-                        <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Professional Summary</label>
-                        <textarea name="summary" value={profile.summary} onChange={handleChange} rows={4} placeholder="Creative and detail-oriented Software Engineer with 3+ years of experience building scalable web applications..." className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155] resize-none"></textarea>
+                        <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Professional Summary</label>
+                        <textarea name="summary" value={profile.summary} onChange={handleChange} rows={4} placeholder="Creative and detail-oriented Software Engineer with 3+ years of experience building scalable web applications..." className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155] resize-none"></textarea>
                       </div>
                     </div>
                   )}
@@ -505,43 +505,43 @@ export default function BuilderPage() {
                       <div className="flex items-center justify-between">
                         <div className="flex flex-col gap-2">
                           <h2 className="text-3xl font-bold text-white tracking-tight">Professional Experience</h2>
-                          <p className="text-sm text-[#94a3b8]">Add your past roles, highlighting achievements and impact.</p>
+                          <p className="text-sm text-zinc-400">Add your past roles, highlighting achievements and impact.</p>
                         </div>
-                        <button onClick={addExperience} className="text-sm px-4 py-2 bg-indigo-500/20 text-indigo-400 rounded-lg hover:bg-indigo-500/30 transition-all font-semibold">
+                        <button onClick={addExperience} className="text-sm px-4 py-2 bg-zinc-9000/20 text-indigo-400 rounded-lg hover:bg-zinc-9000/30 transition-all font-semibold">
                           + Add Role
                         </button>
                       </div>
                       
                       <div className="flex flex-col gap-6 max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
                         {profile.experience.map((exp, idx) => (
-                          <div key={idx} className="border border-[#1e293b] rounded-xl p-5 flex flex-col gap-5 bg-[#0b0f19]">
+                          <div key={idx} className="border border-[#27272a] rounded-xl p-5 flex flex-col gap-5 bg-[#09090b]">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               <div className="flex flex-col gap-2">
-                                <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Company</label>
-                                <input type="text" value={exp.company} onChange={(e) => handleExperienceChange(idx, 'company', e.target.value)} placeholder="Google" className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-indigo-500 placeholder:text-[#334155]" />
+                                <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Company</label>
+                                <input type="text" value={exp.company} onChange={(e) => handleExperienceChange(idx, 'company', e.target.value)} placeholder="Google" className="bg-[#09090b] border border-[#27272a] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-zinc-500 placeholder:text-[#334155]" />
                               </div>
                               <div className="flex flex-col gap-2">
-                                <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Role / Title</label>
-                                <input type="text" value={exp.role} onChange={(e) => handleExperienceChange(idx, 'role', e.target.value)} placeholder="Senior Software Engineer" className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-indigo-500 placeholder:text-[#334155]" />
+                                <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Role / Title</label>
+                                <input type="text" value={exp.role} onChange={(e) => handleExperienceChange(idx, 'role', e.target.value)} placeholder="Senior Software Engineer" className="bg-[#09090b] border border-[#27272a] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-zinc-500 placeholder:text-[#334155]" />
                               </div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                               <div className="flex flex-col gap-2">
-                                <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Location</label>
-                                <input type="text" value={exp.location} onChange={(e) => handleExperienceChange(idx, 'location', e.target.value)} placeholder="Remote" className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-indigo-500 placeholder:text-[#334155]" />
+                                <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Location</label>
+                                <input type="text" value={exp.location} onChange={(e) => handleExperienceChange(idx, 'location', e.target.value)} placeholder="Remote" className="bg-[#09090b] border border-[#27272a] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-zinc-500 placeholder:text-[#334155]" />
                               </div>
                               <div className="flex flex-col gap-2">
-                                <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Start Date</label>
-                                <input type="text" value={exp.startDate} onChange={(e) => handleExperienceChange(idx, 'startDate', e.target.value)} placeholder="Jan 2021" className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-indigo-500 placeholder:text-[#334155]" />
+                                <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Start Date</label>
+                                <input type="text" value={exp.startDate} onChange={(e) => handleExperienceChange(idx, 'startDate', e.target.value)} placeholder="Jan 2021" className="bg-[#09090b] border border-[#27272a] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-zinc-500 placeholder:text-[#334155]" />
                               </div>
                               <div className="flex flex-col gap-2">
-                                <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">End Date</label>
-                                <input type="text" value={exp.endDate} onChange={(e) => handleExperienceChange(idx, 'endDate', e.target.value)} placeholder="Present" className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-indigo-500 placeholder:text-[#334155]" />
+                                <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">End Date</label>
+                                <input type="text" value={exp.endDate} onChange={(e) => handleExperienceChange(idx, 'endDate', e.target.value)} placeholder="Present" className="bg-[#09090b] border border-[#27272a] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-zinc-500 placeholder:text-[#334155]" />
                               </div>
                             </div>
                             <div className="flex flex-col gap-2">
-                              <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Achievements / Bullet Points (Use bullet lists)</label>
-                              <textarea value={exp.description} onChange={(e) => handleExperienceChange(idx, 'description', e.target.value)} rows={4} placeholder="• Spearheaded the migration of legacy monolith to microservices...&#10;• Reduced load times by 40%..." className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-indigo-500 placeholder:text-[#334155] resize-none"></textarea>
+                              <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Achievements / Bullet Points (Use bullet lists)</label>
+                              <textarea value={exp.description} onChange={(e) => handleExperienceChange(idx, 'description', e.target.value)} rows={4} placeholder="• Spearheaded the migration of legacy monolith to microservices...&#10;• Reduced load times by 40%..." className="bg-[#09090b] border border-[#27272a] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-zinc-500 placeholder:text-[#334155] resize-none"></textarea>
                             </div>
                           </div>
                         ))}
@@ -554,38 +554,38 @@ export default function BuilderPage() {
                     <div className="flex flex-col gap-6 animate-fadeIn">
                       <div className="flex flex-col gap-2">
                         <h2 className="text-3xl font-bold text-white tracking-tight">Academic Background</h2>
-                        <p className="text-sm text-[#94a3b8]">Detail your university studies, degrees, and coursework.</p>
+                        <p className="text-sm text-zinc-400">Detail your university studies, degrees, and coursework.</p>
                       </div>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">College / University *</label>
-                          <input type="text" name="college" value={profile.college} onChange={handleChange} placeholder="Massachusetts Institute of Technology" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">College / University *</label>
+                          <input type="text" name="college" value={profile.college} onChange={handleChange} placeholder="Massachusetts Institute of Technology" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                         </div>
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Degree *</label>
-                          <input type="text" name="degree" value={profile.degree} onChange={handleChange} placeholder="Bachelor of Science" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Degree *</label>
+                          <input type="text" name="degree" value={profile.degree} onChange={handleChange} placeholder="Bachelor of Science" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                         </div>
                       </div>
                       
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Major / Specialization</label>
-                          <input type="text" name="major" value={profile.major} onChange={handleChange} placeholder="Computer Science" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Major / Specialization</label>
+                          <input type="text" name="major" value={profile.major} onChange={handleChange} placeholder="Computer Science" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                         </div>
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Graduation Year</label>
-                          <input type="text" name="gradYear" value={profile.gradYear} onChange={handleChange} placeholder="2026" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Graduation Year</label>
+                          <input type="text" name="gradYear" value={profile.gradYear} onChange={handleChange} placeholder="2026" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                         </div>
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">CGPA / Percentage</label>
-                          <input type="text" name="cgpa" value={profile.cgpa} onChange={handleChange} placeholder="3.8 / 4.0" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">CGPA / Percentage</label>
+                          <input type="text" name="cgpa" value={profile.cgpa} onChange={handleChange} placeholder="3.8 / 4.0" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                         </div>
                       </div>
 
                       <div className="flex flex-col gap-2">
-                        <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Relevant Coursework / Honors</label>
-                        <input type="text" name="coursework" value={profile.coursework} onChange={handleChange} placeholder="Data Structures, Algorithms, Distributed Systems, Dean's List..." className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                        <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Relevant Coursework / Honors</label>
+                        <input type="text" name="coursework" value={profile.coursework} onChange={handleChange} placeholder="Data Structures, Algorithms, Distributed Systems, Dean's List..." className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                       </div>
                     </div>
                   )}
@@ -595,25 +595,25 @@ export default function BuilderPage() {
                     <div className="flex flex-col gap-6 animate-fadeIn">
                       <div className="flex flex-col gap-2">
                         <h2 className="text-3xl font-bold text-white tracking-tight">Technical Skills</h2>
-                        <p className="text-sm text-[#94a3b8]">Categorize your tech stack so recruiters can easily parse your capabilities.</p>
+                        <p className="text-sm text-zinc-400">Categorize your tech stack so recruiters can easily parse your capabilities.</p>
                       </div>
                       
                       <div className="flex flex-col gap-5">
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Languages</label>
-                          <input type="text" name="languages" value={profile.skills.languages} onChange={handleSkillChange} placeholder="JavaScript, Python, C++, Go, Rust" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Languages</label>
+                          <input type="text" name="languages" value={profile.skills.languages} onChange={handleSkillChange} placeholder="JavaScript, Python, C++, Go, Rust" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                         </div>
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Frontend Frameworks & Libs</label>
-                          <input type="text" name="frontend" value={profile.skills.frontend} onChange={handleSkillChange} placeholder="React, Next.js, Vue, Tailwind CSS, Three.js" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Frontend Frameworks & Libs</label>
+                          <input type="text" name="frontend" value={profile.skills.frontend} onChange={handleSkillChange} placeholder="React, Next.js, Vue, Tailwind CSS, Three.js" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                         </div>
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Backend & Databases</label>
-                          <input type="text" name="backend" value={profile.skills.backend} onChange={handleSkillChange} placeholder="Node.js, Express, PostgreSQL, MongoDB, Redis" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Backend & Databases</label>
+                          <input type="text" name="backend" value={profile.skills.backend} onChange={handleSkillChange} placeholder="Node.js, Express, PostgreSQL, MongoDB, Redis" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                         </div>
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Tools & DevOps</label>
-                          <input type="text" name="tools" value={profile.skills.tools} onChange={handleSkillChange} placeholder="Git, Docker, AWS, Vercel, Figma" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                          <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Tools & DevOps</label>
+                          <input type="text" name="tools" value={profile.skills.tools} onChange={handleSkillChange} placeholder="Git, Docker, AWS, Vercel, Figma" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                         </div>
                       </div>
                     </div>
@@ -625,40 +625,40 @@ export default function BuilderPage() {
                       <div className="flex items-center justify-between">
                         <div className="flex flex-col gap-2">
                           <h2 className="text-3xl font-bold text-white tracking-tight">What have you been building?</h2>
-                          <p className="text-sm text-[#94a3b8]">Add notable projects and your GitHub link.</p>
+                          <p className="text-sm text-zinc-400">Add notable projects and your GitHub link.</p>
                         </div>
-                        <button onClick={addProject} className="text-sm px-4 py-2 bg-indigo-500/20 text-indigo-400 rounded-lg hover:bg-indigo-500/30 transition-all font-semibold">
+                        <button onClick={addProject} className="text-sm px-4 py-2 bg-zinc-9000/20 text-indigo-400 rounded-lg hover:bg-zinc-9000/30 transition-all font-semibold">
                           + Add Project
                         </button>
                       </div>
                       
                       <div className="flex flex-col gap-2 mb-2">
-                        <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Primary GitHub URL</label>
-                        <input type="text" name="githubUrl" value={profile.githubUrl} onChange={handleChange} placeholder="github.com/johndoe" className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" />
+                        <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Primary GitHub URL</label>
+                        <input type="text" name="githubUrl" value={profile.githubUrl} onChange={handleChange} placeholder="github.com/johndoe" className="bg-[#09090b] border border-[#27272a] rounded-xl p-4 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" />
                       </div>
 
                       <div className="flex flex-col gap-6 max-h-[40vh] overflow-y-auto pr-2 custom-scrollbar">
                         {profile.projects.map((proj, idx) => (
-                          <div key={idx} className="border border-[#1e293b] rounded-xl p-5 flex flex-col gap-5 bg-[#0b0f19]">
+                          <div key={idx} className="border border-[#27272a] rounded-xl p-5 flex flex-col gap-5 bg-[#09090b]">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               <div className="flex flex-col gap-2">
-                                <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Project Name</label>
-                                <input type="text" value={proj.title} onChange={(e) => handleProjectChange(idx, 'title', e.target.value)} placeholder="ApplyJack AI Wizard" className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-indigo-500 placeholder:text-[#334155]" />
+                                <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Project Name</label>
+                                <input type="text" value={proj.title} onChange={(e) => handleProjectChange(idx, 'title', e.target.value)} placeholder="ApplyJack AI Wizard" className="bg-[#09090b] border border-[#27272a] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-zinc-500 placeholder:text-[#334155]" />
                               </div>
                               <div className="flex flex-col gap-2">
-                                <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Tech Stack</label>
-                                <input type="text" value={proj.tech} onChange={(e) => handleProjectChange(idx, 'tech', e.target.value)} placeholder="Next.js, Tailwind, OpenAI" className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-indigo-500 placeholder:text-[#334155]" />
+                                <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Tech Stack</label>
+                                <input type="text" value={proj.tech} onChange={(e) => handleProjectChange(idx, 'tech', e.target.value)} placeholder="Next.js, Tailwind, OpenAI" className="bg-[#09090b] border border-[#27272a] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-zinc-500 placeholder:text-[#334155]" />
                               </div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               <div className="flex flex-col gap-2">
-                                <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Live Demo URL</label>
-                                <input type="text" value={proj.live} onChange={(e) => handleProjectChange(idx, 'live', e.target.value)} placeholder="applyjack.vercel.app" className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-indigo-500 placeholder:text-[#334155]" />
+                                <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Live Demo URL</label>
+                                <input type="text" value={proj.live} onChange={(e) => handleProjectChange(idx, 'live', e.target.value)} placeholder="applyjack.vercel.app" className="bg-[#09090b] border border-[#27272a] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-zinc-500 placeholder:text-[#334155]" />
                               </div>
                             </div>
                             <div className="flex flex-col gap-2">
-                              <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">Description (Bullet points)</label>
-                              <textarea value={proj.description} onChange={(e) => handleProjectChange(idx, 'description', e.target.value)} rows={3} placeholder="• Engineered a dynamic multi-step form...&#10;• Integrated automated PDF generation..." className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-indigo-500 placeholder:text-[#334155] resize-none"></textarea>
+                              <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Description (Bullet points)</label>
+                              <textarea value={proj.description} onChange={(e) => handleProjectChange(idx, 'description', e.target.value)} rows={3} placeholder="• Engineered a dynamic multi-step form...&#10;• Integrated automated PDF generation..." className="bg-[#09090b] border border-[#27272a] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-zinc-500 placeholder:text-[#334155] resize-none"></textarea>
                             </div>
                           </div>
                         ))}
@@ -671,12 +671,12 @@ export default function BuilderPage() {
                     <div className="flex flex-col gap-6 animate-fadeIn">
                       <div className="flex flex-col gap-2">
                         <h2 className="text-3xl font-bold text-white tracking-tight">Where are you applying?</h2>
-                        <p className="text-sm text-[#94a3b8]">Select the job platforms you use and provide your profile links.</p>
+                        <p className="text-sm text-zinc-400">Select the job platforms you use and provide your profile links.</p>
                       </div>
                       
                       <div className="flex flex-col gap-4">
                         {['linkedin', 'naukri', 'indeed', 'wellfound', 'glassdoor'].map((platform) => (
-                          <div key={platform} className="flex flex-col gap-3 p-4 rounded-xl border border-[#1e293b] bg-[#0b0f19]">
+                          <div key={platform} className="flex flex-col gap-3 p-4 rounded-xl border border-[#27272a] bg-[#09090b]">
                             <div className="flex items-center gap-3">
                               <input 
                                 type="checkbox" 
@@ -689,13 +689,13 @@ export default function BuilderPage() {
                             
                             {profile.platforms[platform] && (
                               <div className="flex flex-col gap-2 pl-8 mt-2 animate-fadeIn">
-                                <label className="text-xs font-semibold tracking-wider text-[#94a3b8] uppercase">{platform} Profile URL *</label>
+                                <label className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">{platform} Profile URL *</label>
                                 <input 
                                   type="text" 
                                   value={profile.platformUrls[platform]} 
                                   onChange={(e) => handleUrlChange(platform, e.target.value)} 
                                   placeholder={`https://${platform}.com/in/yourprofile`} 
-                                  className="bg-[#0f172a] border border-[#1e293b] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all placeholder:text-[#334155]" 
+                                  className="bg-[#09090b] border border-[#27272a] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-zinc-500 transition-all placeholder:text-[#334155]" 
                                 />
                               </div>
                             )}
@@ -709,7 +709,7 @@ export default function BuilderPage() {
               </div>
 
               {/* Navigation Buttons */}
-              <div className="flex items-center justify-between mt-10 pt-6 border-t border-[#1e293b]">
+              <div className="flex items-center justify-between mt-10 pt-6 border-t border-[#27272a]">
                 <button 
                   onClick={prevStep}
                   className={`px-8 py-3 rounded-full text-sm font-bold transition-all ${
