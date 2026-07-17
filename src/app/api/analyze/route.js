@@ -1,5 +1,8 @@
 import { OpenAI } from 'openai';
 
+// Vercel Hobby tier allows up to 60 seconds if explicitly set
+export const maxDuration = 60;
+
 const openai = new OpenAI({
   baseURL: 'https://integrate.api.nvidia.com/v1',
   apiKey: process.env.NVIDIA_API_KEY
