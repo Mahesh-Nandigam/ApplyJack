@@ -1,11 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Search, Briefcase, Zap, Bell, CheckCircle2 } from 'lucide-react';
+import { Search, Briefcase, Zap, Bell, CheckCircle2, User, Bot } from 'lucide-react';
 
 export default function DashboardPage() {
   const [url, setUrl] = useState('');
-  const [isParsing, setIsParsing] = useState(false);
+    const [isParsing, setIsParsing] = useState(false);
+  const [aiResponse, setAiResponse] = useState('');
 
   const notifications = [
     { platform: 'LinkedIn', count: 3, role: 'Full Stack Developer', color: '#0A66C2', icon: <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg> },
@@ -14,14 +15,29 @@ export default function DashboardPage() {
     { platform: 'Indeed', count: 8, role: 'Software Engineer', color: '#2164f3', icon: <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-6h2v6zm-1-7a1.5 1.5 0 1 1 1.5-1.5A1.5 1.5 0 0 1 12 10z" /></svg> },
     { platform: 'Wellfound', count: 4, role: 'Backend Dev', color: '#e64a19', icon: <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current"><path d="M12 2L1 21h22L12 2zm0 3.5l7.5 13.5h-15L12 5.5z" /></svg> }
   ];
-  const handleParse = (e) => {
+    const handleParse = async (e) => {
     e.preventDefault();
     if (!url) return;
     setIsParsing(true);
-    // Mock parsing delay
-    setTimeout(() => {
+    setAiResponse('');
+    
+    try {
+      const res = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setAiResponse(data.response);
+      } else {
+        setAiResponse("Oops, something went wrong with the engine: " + data.error);
+      }
+    } catch (err) {
+      setAiResponse("Error connecting to the AI Engine.");
+    } finally {
       setIsParsing(false);
-    }, 2000);
+    }
   };
 
   return (
@@ -106,7 +122,7 @@ export default function DashboardPage() {
             </button>
           </form>
 
-          <div className="mt-6 flex items-center justify-center gap-8 text-sm font-medium text-zinc-500">
+          <div className="mt-6 flex items-center justify-center gap-8 text-sm font-medium text-zinc-500 transition-all">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-500" />
               Extracts Requirements
@@ -120,6 +136,42 @@ export default function DashboardPage() {
               Tailors Resume
             </div>
           </div>
+
+          {/* AI Response Chat UI */}
+          {(isParsing || aiResponse) && (
+            <div className="mt-8 bg-zinc-900/60 backdrop-blur-md border border-[#27272a] rounded-2xl p-6 text-zinc-200 shadow-2xl animate-in slide-in-from-bottom-4 duration-500 max-h-[40vh] overflow-y-auto custom-scrollbar">
+              <div className="flex items-start gap-4 mb-4 border-b border-zinc-800 pb-4">
+                <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center shrink-0">
+                   <User className="w-5 h-5 text-zinc-400" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-bold text-white mb-1">Mahesh</p>
+                  <p className="text-zinc-400 text-sm break-all">{url}</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center shrink-0">
+                   <Bot className="w-5 h-5 text-indigo-400" />
+                </div>
+                <div className="flex-1 text-sm leading-relaxed whitespace-pre-wrap">
+                  <p className="text-sm font-bold text-indigo-400 mb-2">Apply Jack AI <span className="text-xs font-normal text-zinc-500 ml-2">powered by Llama 3.1 70B</span></p>
+                  {isParsing ? (
+                    <div className="flex items-center gap-2 text-indigo-300">
+                      <span className="relative flex h-3 w-3">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span>
+                      </span>
+                      Analyzing requirements and mapping to your profile...
+                    </div>
+                  ) : (
+                    <div dangerouslySetInnerHTML={{ __html: aiResponse.replace(/\n/g, '<br/>') }} />
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
 
         </div>
       </div>
