@@ -751,8 +751,8 @@ export default function BuilderPage() {
         .animate-fadeIn {
           animation: fadeIn 0.4s ease-out forwards;
         }
-      `}
-        @media print {
+      @media print {
+
           body, html {
             margin: 0;
             padding: 0;
@@ -778,7 +778,7 @@ export default function BuilderPage() {
             margin: 0;
           }
         }
-      </style>
+      }`}</style>
     </div>
   );
 }
