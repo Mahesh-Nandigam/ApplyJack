@@ -8,13 +8,12 @@ export default function DashboardPage() {
   const [isParsing, setIsParsing] = useState(false);
 
   const notifications = [
-    { platform: 'LinkedIn', count: 3, role: 'Full Stack Developer', icon: 'M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z' },
-    { platform: 'Naukri', count: 5, role: 'Frontend Engineer', icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm-1-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5 7h-2v-4c0-1.1-.9-2-2-2s-2 .9-2 2v4h-2v-6h2v1.1c.6-1.1 2.4-1.2 3.2-.2.8.9.8 2.2.8 3.1v4z' },
-    { platform: 'Wellfound', count: 2, role: 'React Developer', icon: 'M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.7-.71 2.992-1.17 2.992 1.284v3.623z' },
-    { platform: 'Indeed', count: 8, role: 'Software Engineer', icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm-1-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5 7h-2v-4c0-1.1-.9-2-2-2s-2 .9-2 2v4h-2v-6h2v1.1c.6-1.1 2.4-1.2 3.2-.2.8.9.8 2.2.8 3.1v4z' },
-    { platform: 'Instahyre', count: 1, role: 'Backend Dev', icon: 'M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-2 17H8v-7h2v7zm-1-8c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6 8h-2v-4c0-1.1-.9-2-2-2s-2 .9-2 2v4H9v-7h2v1.2c.6-1.1 2.4-1.2 3.2-.2.8.9.8 2.3.8 3.2v3.8z' }
+    { platform: 'LinkedIn', count: 3, role: 'Full Stack Developer', color: '#0A66C2', icon: <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg> },
+    { platform: 'Naukri', count: 5, role: 'Frontend Engineer', color: '#008bdc', icon: <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" /></svg> },
+    { platform: 'Internshala', count: 2, role: 'React Developer', color: '#1295c9', icon: <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current"><path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" /></svg> },
+    { platform: 'Indeed', count: 8, role: 'Software Engineer', color: '#2164f3', icon: <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-6h2v6zm-1-7a1.5 1.5 0 1 1 1.5-1.5A1.5 1.5 0 0 1 12 10z" /></svg> },
+    { platform: 'Wellfound', count: 4, role: 'Backend Dev', color: '#e64a19', icon: <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current"><path d="M12 2L1 21h22L12 2zm0 3.5l7.5 13.5h-15L12 5.5z" /></svg> }
   ];
-
   const handleParse = (e) => {
     e.preventDefault();
     if (!url) return;
@@ -48,31 +47,29 @@ export default function DashboardPage() {
           </div>
         </header>
 
-        <div className="flex-1 overflow-x-auto custom-scrollbar flex items-center">
-          <div className="flex gap-6 min-w-max pb-4">
+                <div className="flex-1 w-full flex items-center justify-center mt-4">
+          <div className="w-full flex gap-4 xl:gap-6 2xl:gap-8 max-w-[1400px] mx-auto">
             {notifications.map((notif, idx) => (
               <div 
                 key={idx}
-                className="w-80 h-96 bg-transparent border border-[#27272a] rounded-2xl p-6 flex flex-col justify-between hover:border-zinc-500 hover:bg-zinc-900/30 transition-all cursor-pointer group"
+                className="flex-1 min-w-[200px] h-[340px] bg-zinc-900/20 backdrop-blur-sm border border-[#27272a] rounded-3xl p-6 flex flex-col justify-between hover:border-zinc-500 hover:bg-zinc-900/60 transition-all duration-300 cursor-pointer group hover:-translate-y-2 shadow-xl hover:shadow-2xl hover:shadow-black/50"
               >
                 <div className="flex justify-between items-start">
-                  <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-[#27272a] flex items-center justify-center text-zinc-400 group-hover:text-white transition-colors">
-                    <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
-                      <path d={notif.icon} />
-                    </svg>
+                  <div className="w-14 h-14 rounded-2xl border border-[#27272a] flex items-center justify-center bg-zinc-950 group-hover:bg-zinc-900 transition-all duration-300 shadow-inner drop-shadow-md" style={{ color: notif.color }}>
+                    {notif.icon}
                   </div>
-                  <span className="bg-white text-black text-xs font-bold px-2.5 py-1 rounded-full">
+                  <span className="bg-zinc-800/50 text-zinc-300 border border-zinc-700/50 text-xs font-bold px-3 py-1.5 rounded-full group-hover:bg-white group-hover:text-black group-hover:border-white transition-all duration-300">
                     {notif.count} New
                   </span>
                 </div>
                 
-                <div>
-                  <h3 className="text-2xl font-bold text-white mb-2">{notif.platform}</h3>
-                  <p className="text-sm text-zinc-400 font-medium">{notif.count} job notifications for</p>
-                  <p className="text-lg font-semibold text-zinc-200 mt-1">{notif.role}</p>
+                <div className="mt-auto mb-6">
+                  <h3 className="text-2xl font-bold text-white mb-2 tracking-tight group-hover:text-zinc-100 transition-colors">{notif.platform}</h3>
+                  <p className="text-sm text-zinc-500 font-medium group-hover:text-zinc-400 transition-colors">{notif.count} job notifications for</p>
+                  <p className="text-lg font-semibold text-zinc-300 mt-1 leading-snug group-hover:text-white transition-colors">{notif.role}</p>
                 </div>
 
-                <button className="w-full bg-zinc-900 text-white font-medium text-sm px-4 py-3 rounded-xl border border-[#27272a] group-hover:bg-white group-hover:text-black transition-all">
+                <button className="w-full bg-zinc-900 text-white font-semibold text-sm px-4 py-3.5 rounded-xl border border-[#27272a] group-hover:bg-white group-hover:text-black group-hover:border-white transition-all duration-300 shadow-md">
                   Auto-Apply Now
                 </button>
               </div>
