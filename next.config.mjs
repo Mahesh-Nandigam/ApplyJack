@@ -7,6 +7,16 @@ const nextConfig = {
         source: '/about',
         destination: '/about.html',
       },
+      // Lusion JS navigates to /projects when user scrolls - serve same page
+      {
+        source: '/projects',
+        destination: '/about.html',
+      },
+      // Lusion JS navigates to / (home) - redirect to /about
+      {
+        source: '/home',
+        destination: '/about.html',
+      },
     ];
   },
 };
